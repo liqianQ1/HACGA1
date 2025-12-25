@@ -1,0 +1,10 @@
+# Ignore GeneMark model files in GitHub language statistics
+*.mod linguist-vendored
+*.dat linguist-vendored
+*.cfg linguist-vendored
+*.hmm linguist-vendored
+
+# Ignore bundled third-party tools
+gmes_linux_64_4/** linguist-vendored
+pasa_conf/** linguist-vendored
+test_data/** linguist-generated
