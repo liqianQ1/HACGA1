@@ -100,7 +100,6 @@ def read_fasta_all_seq(input_filename):
     return fasta_records  
 
 def read_fasta_one_seq(one_seq):  
-    # 读取头部行  
     lines = one_seq.split("\n") 
     header_line = lines[0] 
     seq = ""
@@ -109,8 +108,6 @@ def read_fasta_one_seq(one_seq):
             continue
         seq += line
 
-        
-    # 匹配头部并获取ID和注释  
     fasta_record = {  
         'id': header_line.split(" ")[0],  
         'ann':header_line.split(" ")[1] if len(header_line.split(" ")) == 2  else '',  
@@ -141,32 +138,25 @@ def write_fasta_one_seq(oput, fasta):
 
 
 def absolute_path(path, pwd=None):
-    # 初始化变量
     abs_path = None
     name = None
     parent_path = None
 
-    # 获取当前工作目录
     if not pwd:
         pwd = os.getcwd()
 
-    # 去除路径和当前工作目录中的末尾换行符
     path = path.strip()
     pwd = pwd.strip()
 
-    # 确保当前工作目录是绝对路径
     if not pwd.startswith('/'):
         raise ValueError(f"Error: {pwd} is not an absolute path")
 
-    # 如果路径不是绝对路径，则拼接当前工作目录
     if not path.startswith('/'):
         path = os.path.join(pwd, path)
 
-    # 分割路径
     old_path = path.split('/')
     new_path = []
 
-    # 遍历路径中的每个部分
     for part in old_path:
         if part == '' or part == '.':
             continue
@@ -337,7 +327,6 @@ def augustus_rna(sample, fa, fa_pre, gene_gff):
 	       perl {root_path}/bin/gene_stats.pl {oput_dir_protein}/03augustus/augustus.gff >{oput_dir_protein}/03augustus/stat.out  &&
 	       touch {oput_dir_protein}/03augustus/augustus.done
         '''
-     
     os.system(cmd)
 
     
