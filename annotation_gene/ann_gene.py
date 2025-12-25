@@ -504,7 +504,7 @@ def get_config(config):
             config_dict[l[0].strip()] = l[1].strip()
     return(config_dict)
 ##
-
+# trigger linguist refresh
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="A pipeline for genome annotation analysis which includes denovo, homolog and the other evidence (EST, RNAseq, cDNA, et al.).")
     parser.add_argument("--Outputdir", required=True, help="Output file genome annotation analysis directory.")
