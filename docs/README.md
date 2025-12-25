@@ -174,23 +174,6 @@ Trained AUGUSTUS models are stored inside the container and **will be removed wh
 
 ------
 
-## 📖 Citation
-
-If you use HACGA1 in your research, please cite the underlying tools and databases employed by this pipeline, including:
-
-- AUGUSTUS
-- GeneMark
-- GlimmerHMM
-- HISAT2
-- StringTie
-- Trinity
-- PASA
-- EvidenceModeler
-
-A formal citation file (`CITATION.cff`) will be provided.
-
-------
-
 ## 📬 Support & Contact
 
 For questions, bug reports, or feature requests, please open an issue on GitHub.
@@ -199,3 +182,4 @@ For questions, bug reports, or feature requests, please open an issue on GitHub.
 
 
 **HACGA1** — *A scalable and reproducible solution for high-quality genome annotation.*
+
