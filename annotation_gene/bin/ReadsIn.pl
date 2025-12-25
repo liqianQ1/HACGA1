@@ -1,5 +1,4 @@
 #!/usr/bin/perl -w
-# Program Date:   2016.10.25
 
 use strict;
 use File::Basename qw(basename dirname);
