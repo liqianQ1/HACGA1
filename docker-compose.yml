@@ -6,7 +6,7 @@ services:
     container_name: hacga1
     privileged: true
     volumes:
-      - /mhds/hd6platform/biohuaxing/liqian/ann/test_data:/data
+      - /test_data:/data
       - ${HOME}/.gm_key:/root/.gm_key:ro
     environment:
       - HOME=/root
