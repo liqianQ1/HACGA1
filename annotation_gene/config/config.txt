@@ -1,0 +1,9 @@
+transdecoder = /opt/conda/envs/ann/opt/transdecoder
+pasa = /opt/conda/envs/ann/opt/pasa-2.5.2
+augustus_extrinsic = /opt/conda/envs/ann/config/extrinsic/extrinsic.M.RM.E.W.cfg
+augustus = /opt/conda/envs/ann/bin/augustus
+gmes = /software/gmes_linux_64_4
+perl = /opt/conda/envs/ann/bin/perl
+trainGlimmerHMM = /opt/conda/envs/ann/bin/trainGlimmerHMM
+glimmerhmm = /opt/conda/envs/ann/bin/glimmerhmm
+evidencemodeler = /opt/conda/envs/ann/opt/evidencemodeler-2.1.0
