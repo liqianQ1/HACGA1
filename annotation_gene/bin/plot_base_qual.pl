@@ -1,7 +1,6 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 use strict;
 use warnings;
-# use lib "/home/zhanghk/bins/qc";
 use lib "/share/public/software/lib_ssinfo/perl/qc/";
 use Term::ANSIColor qw(:constants);
    $Term::ANSIColor::AUTORESET=1;
