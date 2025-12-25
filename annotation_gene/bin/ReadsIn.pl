@@ -1,6 +1,5 @@
 #!/usr/bin/perl -w
 # Program Date:   2016.10.25
-# Modifier:       zhaolili  <zhaolili001@berrygenomics.com>
 
 use strict;
 use File::Basename qw(basename dirname);
