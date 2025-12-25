@@ -40,7 +40,7 @@ HACGA1 performs genome annotation through the following major stages:
 
 A schematic representation of the HACGA1 workflow is shown below:
 
-![HACGA1 workflow](docs/figures/hacga1_pipeline.png)
+![HACGA1 workflow](figures/hacga1_pipeline.png)
 
 ---
 
@@ -196,5 +196,6 @@ A formal citation file (`CITATION.cff`) will be provided.
 For questions, bug reports, or feature requests, please open an issue on GitHub.
 
 ------
+
 
 **HACGA1** — *A scalable and reproducible solution for high-quality genome annotation.*
