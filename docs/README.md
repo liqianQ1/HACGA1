@@ -61,7 +61,7 @@ HACGA1 supports **Docker-based deployment only**.
 
 ## 🔑 GeneMark License Setup
 
-1. Apply for a GeneMark license via the official GeneMark website or GeneMark@home.
+1. Apply for a GeneMark license via the official [GeneMark website](https://genemark.bme.gatech.edu/GeneMark/license_download.cgi) or GeneMark@home.
 2. Upon approval, save the license key to the following location:
 
 ```markdown
@@ -118,7 +118,7 @@ docker exec hacga1 python /pipeline/annotation_gene/ann_gene.py \
 
 ------
 
-## 📥 Input Data
+## 📥 Input & Output Data
 
 HACGA1 requires the following categories of input:
 
@@ -128,16 +128,6 @@ HACGA1 requires the following categories of input:
 - Homologous protein sequences
 - Configuration and evidence weight files
 
-Detailed descriptions of input formats are provided in:
-
-```
-docs/data_format.md
-```
-
-------
-
-## 📤 Output Overview
-
 The pipeline generates structured outputs for each annotation stage, including:
 
 - RNA-seq-based transcript annotations
@@ -146,13 +136,15 @@ The pipeline generates structured outputs for each annotation stage, including:
 - Consensus gene structures integrated by EVM
 - PASA-refined gene models with UTRs and alternative splicing
 
-Detailed output descriptions and directory structures are documented in:
+
+Detailed descriptions of input formats are provided in:
 
 ```
 docs/data_format.md
 ```
 
 ------
+
 
 ## ⚠️ Important Notes
 
@@ -182,4 +174,5 @@ For questions, bug reports, or feature requests, please open an issue on GitHub.
 
 
 **HACGA1** — *A scalable and reproducible solution for high-quality genome annotation.*
+
 
