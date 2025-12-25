@@ -1,4 +1,4 @@
-#!/home/biohuaxing/Personal/liqian/Anaconda3/envs/ann/bin/perl
+#!/usr/bin/perl -w
 use strict;
 use warnings;
 use Term::ANSIColor qw(:constants);
