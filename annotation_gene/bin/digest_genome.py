@@ -1,13 +1,5 @@
 #!/usr/bin/env python
 
-# HiC-Pro
-# Copyleft 2015 Institut Curie
-# Author(s): Nelle Varoquaux, Nicolas Servant
-# Contact: nicolas.servant@curie.fr
-# This software is distributed without any guarantee under the terms of the
-# GNU General
-# Public License, either Version 2, June 1991 or Version 3, June 2007.
-
 """
 Script to extract restriction fragment from a fasta file and output a BED file
 """
