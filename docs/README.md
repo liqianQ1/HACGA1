@@ -73,7 +73,7 @@ HACGA1 supports **Docker-based deployment only**.
 Clone the repository:
 
 ```shell
-git clone https://github.com/liqianQ1/annotation_gene.git
+git clone https://github.com/liqianQ1/HACGA1.git
 cd annotation_gene
 ```
 
@@ -174,5 +174,6 @@ For questions, bug reports, or feature requests, please open an issue on GitHub.
 
 
 **HACGA1** — *A scalable and reproducible solution for high-quality genome annotation.*
+
 
 
