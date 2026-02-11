@@ -37,19 +37,6 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 
 ENV PATH="/opt/conda/bin:${PATH}"
 
-# --------------------------------------------------
-# GeneMark-ES
-# --------------------------------------------------
-COPY gmes_linux_64_4 /software/gmes_linux_64_4
-ENV GMES=/software/gmes_linux_64_4
-ENV PATH=/software/gmes_linux_64_4:$PATH
-
-# --------------------------------------------------
-# Annotation pipeline
-# --------------------------------------------------
-COPY environment.yml /tmp/environment.yml
-
-WORKDIR /pipeline
 
 # --------------------------------------------------
 # Conda environment
@@ -70,6 +57,20 @@ ENV PATH="/opt/conda/envs/ann/bin:${PATH}"
 ENV PASA_HOME=/opt/conda/envs/ann/opt/pasa-2.5.2
 
 COPY annotation_gene /pipeline/annotation_gene
+
+# --------------------------------------------------
+# GeneMark-ES
+# --------------------------------------------------
+COPY gmes_linux_64_4 /software/gmes_linux_64_4
+ENV GMES=/software/gmes_linux_64_4
+ENV PATH=/software/gmes_linux_64_4:$PATH
+
+# --------------------------------------------------
+# Annotation pipeline
+# --------------------------------------------------
+COPY environment.yml /tmp/environment.yml
+
+WORKDIR /pipeline
 
 # --------------------------------------------------
 # Entrypoint
