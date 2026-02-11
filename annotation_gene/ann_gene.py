@@ -465,11 +465,11 @@ def evm_pasa(sample, iput, cufflinks_fa):
 	       {root_path}/bin/evm_to_gff.pl  *gene_structures_post_PASA_updates*.gff3  -o  {sample}.protein.gff  &&
 	       {evidencemodeler}/EvmUtils/gff3_file_to_proteins.pl  {sample}.protein.gff  {iput}  prot  >  {sample}.protein.fa  &&
 	       {evidencemodeler}/EvmUtils/gff3_file_to_proteins.pl  {sample}.protein.gff  {iput}  CDS   >  {sample}.cds.fa  &&
-	       perl  -p -i -e  's/^(>\S+).*/{1}/'  {sample}.protein.fa  {sample}.cds.fa  &&
+	       perl  -p -i -e  's/^(>\S+).*/\1/'  {sample}.protein.fa  {sample}.cds.fa  &&
 	       {root_path}/bin/best_gene.pl  {sample}.protein.gff  -o  {sample}.protein.best.gff  &&
 	       {evidencemodeler}/EvmUtils/gff3_file_to_proteins.pl  {sample}.protein.best.gff  {iput}  prot  >  {sample}.protein.best.fa  &&
 	       {evidencemodeler}/EvmUtils/gff3_file_to_proteins.pl  {sample}.protein.best.gff  {iput}  CDS   >  {sample}.cds.best.fa  &&
-	       perl  -p -i -e  's/^(>\S+).*/{1}/'  {sample}.protein.best.fa  {sample}.cds.best.fa  &&
+	       perl  -p -i -e  's/^(>\S+).*/\1/'  {sample}.protein.best.fa  {sample}.cds.best.fa  &&
 	       {root_path}/bin/gene_stats.pl {sample}.protein.best.gff >protein.best.gff.stat.out  &&
 	       {root_path}/bin/gene_stats.pl {sample}.protein.gff >protein_prediction.out  &&
 	       mv protein_prediction.out Genes_annotation.statistics.xls  &&
