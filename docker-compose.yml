@@ -6,7 +6,7 @@ services:
     container_name: hacga1
     privileged: true
     volumes:
-      - /test_data:/data
+      - ${PWD}/test_data:/data
       - ${HOME}/.gm_key:/root/.gm_key:ro
     environment:
       - HOME=/root
