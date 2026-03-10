@@ -1,15 +1,6 @@
-version: "1.0"
-
+name: hacga
 services:
-  hacga1:
-    build: .
-    container_name: hacga1
-    privileged: true
-    volumes:
-      - ${PWD}/test_data:/data
-      - ${HOME}/.gm_key:/root/.gm_key:ro
-    environment:
-      - HOME=/root
-    stdin_open: true
-    tty: true
-
+  hacga:
+    build:
+      context: .
+    image: hacga:1.0
