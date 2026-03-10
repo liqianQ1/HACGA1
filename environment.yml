@@ -1,8 +1,8 @@
 name: ann
 channels:
-  - bioconda
   - conda-forge
-  - defaults
+  - bioconda
+  - default
 dependencies:
   - _libgcc_mutex=0.1
   - _openmp_mutex=4.5
@@ -153,10 +153,10 @@ dependencies:
   - libcurl=8.8.0
   - libdb=6.2.32
   - libdeflate=1.20
-  - libedit=3.1.20230828
+  - libedit
   - libev=4.33
   - libexpat=2.6.2
-  - libffi=3.4.4
+  - libffi
   - libgcc=14.1.0
   - libgcc-devel_linux-64=10.4.0
   - libgcc-ng=14.1.0
@@ -575,7 +575,7 @@ dependencies:
   - t-coffee=12.00.7fb08c2
   - tar=1.34
   - tbb=2021.12.0
-  - tk=8.6.14
+  - tk
   - tktable=2.10
   - toml=0.10.2
   - tomlkit=0.13.2
@@ -607,7 +607,7 @@ dependencies:
   - xorg-renderproto=0.11.1
   - xorg-xextproto=7.3.0
   - xorg-xproto=7.0.31
-  - xz=5.4.6
+  - xz
   - yaggo=1.5.10
   - yaml=0.2.5
   - yq=3.4.3
