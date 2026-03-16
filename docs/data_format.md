@@ -1,24 +1,18 @@
 ## Input Format
 
 The pipeline requires a set of tab-delimited configuration files that describe the input datasets.
+
  All input files must be accessible inside the Docker container via the mounted data directory (default: `/data`).
+
+
 
 ### 1. Genome File (`genome.tab`)
 
 This file specifies the reference genome sequence.
 
-**Format:**
-
-| Column    | Description                                    |
-| --------- | ---------------------------------------------- |
-| genome_id | Unique genome identifier                       |
-| fasta     | Absolute or relative path to genome FASTA file |
-
-**Example:**
-
-```
-genome1    /data/genome/genome.fa
-```
+| Sample      | Species      | Genome_fasta           | Masked_genome_fasta                  |
+| ----------- | ------------ | ---------------------- | ------------------------------------ |
+| sample_name | species_name | /data/genome/genome.fa | /data/genome/genome.repeat.masked.fa |
 
 ------
 
@@ -26,18 +20,11 @@ genome1    /data/genome/genome.fa
 
 Protein homology evidence used for gene prediction.
 
-**Format:**
+This file can contain a single row specifying a shared protein database for all samples.
 
-| Column        | Description                |
-| ------------- | -------------------------- |
-| species       | Species name               |
-| protein_fasta | Path to protein FASTA file |
-
-**Example:**
-
-```
-arabidopsis    /data/protein/arabidopsis.fa
-```
+| Homolog_set_name | Homolog_protein_fasta      |
+| ---------------- | -------------------------- |
+| Homolog_name     | /data/genome/Homolog.fasta |
 
 ------
 
@@ -45,71 +32,56 @@ arabidopsis    /data/protein/arabidopsis.fa
 
 RNA-seq alignment or assembled transcript evidence.
 
-**Format:**
-
-| Column     | Description             |
-| ---------- | ----------------------- |
-| sample     | Sample name             |
-| bam_or_gff | Path to BAM or GFF file |
-
-**Example:**
-
-```
-RNAseq1    /data/rnaseq/sample1.bam
-```
-
-------
+| Sample       | Fastq1                                          | Fastq2                                          |
+| ------------ | ----------------------------------------------- | ----------------------------------------------- |
+| sample_name1 | /data/genome/RNA-seq/sample_name1_1.clean.fq.gz | /data/genome/RNA-seq/sample_name1_2.clean.fq.gz |
+| sample_name2 | /data/genome/RNA-seq/sample_name2_1.clean.fq.gz | /data/genome/RNA-seq/sample_name2_2.clean.fq.gz |
 
 ### 4. EST Evidence File (`EST.tab`)
 
 Expressed Sequence Tag (EST) data used as additional transcription evidence.
 
-**Format:**
+This file can contain a single row specifying a shared Trinity FASTA file for all samples.
 
-| Column    | Description            |
-| --------- | ---------------------- |
-| est_id    | EST dataset identifier |
-| est_fasta | Path to EST FASTA file |
-
-**Example:**
-
-```
-EST1    /data/est/est.fa
-```
+| sample      | Trinity_fasta              |
+| ----------- | -------------------------- |
+| sample_name | /data/genome/Trinity.fasta |
 
 ------
 
 ## Output Details
 
-All output files are written to the directory specified by `--Outputdir` (default: `/data`).
+All output files are written to the directory specified by `--Outputdir` .
 
-### 1. Gene Prediction Results
+### 1. Genome-level *Ab Initio* Prediction Results
 
-| File/Directory   | Description                                    |
-| ---------------- | ---------------------------------------------- |
-| `genes.gff3`     | Final integrated gene annotation (GFF3 format) |
-| `genes.fasta`    | Predicted gene nucleotide sequences            |
-| `proteins.fasta` | Predicted protein sequences                    |
-
-------
-
-### 2. Intermediate Evidence Files
-
-| Directory     | Description                       |
-| ------------- | --------------------------------- |
-| `01_homolog/` | Homology-based prediction results |
-| `02_rnaseq/`  | RNA-seq supported gene models     |
-| `03_est/`     | EST-supported predictions         |
+| File                          | Description                                                  |
+| ----------------------------- | ------------------------------------------------------------ |
+| `03augustus/augustus.gff`     | Gene structures predicted by **Augustus** from the genome.   |
+| `04genemarket/genemarket.gff` | Gene structures predicted by **GeneMark-ET** from the genome sequence. |
+| `06glimmerhmm/glimmerhmm.gff` | Gene structures predicted by **GlimmerHMM** from the genome sequence. |
 
 ------
 
-### 3. Augustus Training Models
+### 2. Protein-level Prediction Results
 
-| Path               | Description                              |
-| ------------------ | ---------------------------------------- |
-| `augustus_models/` | Species-specific trained Augustus models |
+| File                          | Description                                                  |
+| ----------------------------- | ------------------------------------------------------------ |
+| `05genemarkep/genemarkep.gff` | Gene structures predicted by **GeneMark-EP+** from the genome. |
 
-> ⚠️ **Important**
->  If not explicitly saved to a mounted directory, trained Augustus models will be lost when the container is removed.
+------
 
-### 
+### 3. Transcript-level Prediction Results
+
+| File                                     | Description                                                  |
+| ---------------------------------------- | ------------------------------------------------------------ |
+| `01RNAdenovo/03_stringtie/RNADenovo.gff` | Transcripts assembled by **StringTie** from RNA-seq data.    |
+| `02trinity_pasa/pasa.1.end.gff`          | Terminal exon structures predicted by **PASA** for Trinity transcripts. |
+
+### 4. Integrated Annotation
+
+| File                       | Description                                                  |
+| -------------------------- | ------------------------------------------------------------ |
+| `07evm/evm.gff3`           | Final integrated gene models produced by **EvidenceModeler (EVM)**, combining predictions from Augustus, GeneMark-EP+,GeneMark-ET, GlimmerHMM, PASA and other evidence sources (GFF3 format). Includes both protein‑coding and non‑coding genes. |
+| `08evm_pasa/*.protein.gff` | Protein‑coding gene structures refined by PASA based on EVM results, one file per processed assembly or configuration (GFF3 format). Represents high‑confidence coding gene models supported by RNA‑seq evidence. |
+
