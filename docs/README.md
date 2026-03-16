@@ -1,10 +1,9 @@
 # 🧬 HACGA1  
 **An Integrated, Evidence-Driven Genome Annotation Pipeline**
 
-HACGA1 is a fully automated genome structural annotation pipeline designed for **eukaryotic genomes**.  
-It integrates *ab initio gene prediction*, *transcriptome-based evidence*, and *homology-based inference* into a unified, reproducible workflow.
+HACGA1 is an advanced, fully automated gene structural annotation pipeline specifically designed for **eukaryotic genomes**. It seamlessly integrates *ab initio gene prediction*, *transcriptome-based evidence*, and *homology-based inference* within a unified and reproducible workflow.
 
-The pipeline is implemented in Python and deployed exclusively via Docker, ensuring cross-platform consistency, reproducibility, and minimal environment configuration.
+Implemented in Python and exclusively deployed via Docker, the pipeline guarantees cross-platform consistency, reproducibility, and minimal configuration requirements for environmental setup.
 
 ---
 
@@ -12,31 +11,31 @@ The pipeline is implemented in Python and deployed exclusively via Docker, ensur
 
 - End-to-end automated genome annotation
 - Integration of multiple annotation strategies:
-  - **Ab initio prediction**: AUGUSTUS, GlimmerHMM, GeneMark
-  - **Transcript evidence**: RNA-seq, Trinity, PASA, TransDecoder
+  - **Ab initio prediction**: AUGUSTUS, GlimmerHMM, GeneMark-ET
+  - **Transcript evidence**: RNA-seq, HISAT2,StringTie2, PASA, TransDecoder
   - **Homology evidence**: GeneMark-EP+ with protein alignments
-- Evidence integration and consensus modeling using **EvidenceModeler (EVM)**
-- UTR and alternative splicing refinement with **PASA**
-- Docker-based deployment for reproducibility
-- Parallel execution with multi-threading and optional SLURM support
-- Robust error handling and modular pipeline design
+- Integrative evidence consolidation and consensus gene model construction using EvidenceModeler (EVM)
+- Refinement of untranslated regions (UTRs) and alternative splicing isoforms through PASA
+- Docker-based deployment to ensure computational reproducibility and environment standardization
+- Parallelized execution with multi-threading capabilities and management for high-performance computing environments
+- Modular pipeline architecture with comprehensive error handling to enhance robustness and maintainability
 
 ---
 
 ## 🧠 Pipeline Overview
 
-HACGA1 performs genome annotation through the following major stages:
+HACGA1 conducts genome annotation through the following principal stages:
 
-1. Genome preprocessing and sequence partitioning for parallel computation
-2. RNA-seq alignment and transcript assembly (HISAT2 + StringTie)
-3. De novo transcriptome assembly and refinement (Trinity + PASA)
-4. Open reading frame (ORF) prediction (TransDecoder)
-5. Gene structure prediction using:
+1. Genome preprocessing and sequence partitioning to enable parallel computation.
+2. RNA-seq read alignment and transcript assembly using HISAT2 and StringTie2.
+3. De novo transcriptome assembly and subsequent refinement via Trinity and PASA.
+4. Open reading frame (ORF) prediction employing TransDecoder.
+5. Gene structure prediction based on multiple complementary approaches, including:
    - AUGUSTUS
    - GlimmerHMM
-   - GeneMark-ET / GeneMark-EP+
-6. Integration of multi-source evidence using EvidenceModeler (EVM)
-7. Final gene model refinement, UTR annotation, and alternative splicing correction with PASA
+   - GeneMark-ET and GeneMark-EP+
+6. Integration of multi-source evidence using EvidenceModeler (EVM).
+7. Final refinement of gene models, annotation of untranslated regions (UTRs), and correction of alternative splicing events utilizing PASA.
 
 A schematic representation of the HACGA1 workflow is shown below:
 
@@ -61,7 +60,7 @@ HACGA1 supports **Docker-based deployment only**.
 
 ## 🔑 GeneMark License Setup
 
-1. Apply for a GeneMark license via the official [GeneMark website](https://genemark.bme.gatech.edu/GeneMark/license_download.cgi) or GeneMark@home.
+1. Apply for a GeneMark license via the official GeneMark website or GeneMark@home.
 2. Upon approval, save the license key to the following location:
 
 ```markdown
@@ -70,74 +69,71 @@ HACGA1 supports **Docker-based deployment only**.
 
 ## 🚀 Installation
 
-Clone the repository:
+**1.Clone the repository:**
 
 ```shell
 git clone https://github.com/liqianQ1/HACGA1.git
-cd annotation_gene
+cd HACGA1
 ```
 
-Build the Docker image:
+**2.Download GeneMark software and license:**
+
+Before building the Docker image, you need to obtain **GeneMark-ES/ET/EP+** software and its license:
+
+1. Go to the official GeneMark website: https://genemark.bme.gatech.edu/GeneMark/license_download.cgi
+2. Apply for the software package and license.
+3. Make sure to choose:
+   - **Version:** 4.73_lic
+   - **Platform:** LINUX 64-bit (Kernel 2.6 – 4)
+
+After downloading, place the installation files and license in the appropriate folder of this project  and rename the folder to `gmes_linux_64`.
+
+**3.Build the Docker image:**
 
 ```shell
-docker-compose build
+docker compose build
 ```
 
 ------
 
 ## ▶️ Running HACGA1
 
-Container runtime parameters and data volume mounts are defined in `docker-compose.yml`.
- Modify the mounted data directory to match your local data layout.
+Test data can be obtained via the **https://doi.org/10.6084/m9.figshare.31743703**.
 
-### Option 1: Run inside the container
+~~~bash
+wget "https://figshare.com/ndownloader/files/62818186"
+unzip test_data.zip
+~~~
+
+Adjust the mounted data directory to align with your local data structure.
 
 ```shell
-docker exec -it hacga1 /bin/bash
-
-python /pipeline/annotation_gene/ann_gene.py \
+docker run --rm \
+  -v ./test_data:/data \
+  -v ~/.gm_key:/home/hacga_user/.gm_key \
+  hacga:1.0 \
+  python /pipeline/annotation_gene/ann_gene.py \
   --Outputdir /data \
   --Genome /data/tab/genome.tab \
   --Homolog /data/tab/homolog.tab \
   --RNAseq /data/tab/RNAseq.tab \
   --EST /data/tab/EST.tab \
-  --max_parallel 100
-```
-
-### Option 2: Run directly from the host
-
-```shell
-docker exec hacga1 python /pipeline/annotation_gene/ann_gene.py \
-  --Outputdir /data \
-  --Genome /data/tab/genome.tab \
-  --Homolog /data/tab/homolog.tab \
-  --RNAseq /data/tab/RNAseq.tab \
-  --EST /data/tab/EST.tab \
-  --max_parallel 100
+  --max_parallel 8
 ```
 
 ------
 
-## 📥 Input & Output Data
+## 📥 Input Data
 
-HACGA1 requires the following categories of input:
+HACGA1 necessitates the following categories of input:
 
-- Genome sequence and repeat annotation
-- RNA-seq reads
+- Genome sequence and repeat annotations
+- RNA-seq read data
 - Trinity-assembled transcript sequences
 - Homologous protein sequences
-- Configuration and evidence weight files
+- Configuration files and evidence weight parameters
 
-The pipeline generates structured outputs for each annotation stage, including:
-
-- RNA-seq-based transcript annotations
-- De novo gene predictions
-- Homology-supported gene models
-- Consensus gene structures integrated by EVM
-- PASA-refined gene models with UTRs and alternative splicing
-
-
-Detailed descriptions of input formats are provided in:
+Comprehensive descriptions of the required input formats are provided in:
 
 ```
 docs/data_format.md
@@ -145,12 +141,29 @@ docs/data_format.md
 
 ------
 
+## 📤 Output Overview
+
+The pipeline produces well-structured outputs corresponding to each stage of the annotation process, including:
+
+- RNA-seq–based transcript annotations
+- De novo gene predictions
+- Homology-supported gene models
+- Consensus gene structures integrated using EvidenceModeler (EVM)
+- PASA-refined gene models incorporating untranslated regions (UTRs) and alternative splicing events
+
+Comprehensive descriptions of output formats and directory organization are documented in:
+
+```
+docs/data_format.md
+```
+
+------
 
 ## ⚠️ Important Notes
 
 ### Persistence of Trained AUGUSTUS Models
 
-Trained AUGUSTUS models are stored inside the container and **will be removed when the container is deleted**.
+Trained AUGUSTUS models are retained within the container environment and will be permanently removed upon deletion of the container.
 
 - Default internal path:
 
@@ -166,14 +179,27 @@ Trained AUGUSTUS models are stored inside the container and **will be removed wh
 
 ------
 
+## 📖 Citation
+
+If you use HACGA1 in your research, please cite the underlying tools and databases employed by this pipeline, including:
+
+- AUGUSTUS
+- GeneMark
+- GlimmerHMM
+- HISAT2
+- StringTie
+- Trinity
+- PASA
+- EvidenceModeler
+
+A formal citation file (`CITATION.cff`) will be provided.
+
+------
+
 ## 📬 Support & Contact
 
 For questions, bug reports, or feature requests, please open an issue on GitHub.
 
 ------
 
-
 **HACGA1** — *A scalable and reproducible solution for high-quality genome annotation.*
-
-
-
