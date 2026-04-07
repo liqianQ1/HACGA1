@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use HACGA1 in your research, please cite it as below."
+
+authors:
+  - name: "liangqiqi"
+    orcid: "https://orcid.org/[XXXX-XXXX-XXXX-XXXX]"
+    affiliation: "[Your Institution or Lab]"
+
+title: "HACGA1: A Scalable Pipeline for Segmented Genome Analysis"
+version: "1.0.0"
+date-released: "2026-04-07"
+
+repository-code: "https://github.com/liqianQ1/HACGA1"
+# doi: ""
+
+keywords:
+  - genome annotation
+  - parallel computing
+  - transcriptomics
+  - bioinformatics pipeline
+
+license: "MIT"
