@@ -192,8 +192,6 @@ If you use HACGA1 in your research, please cite the underlying tools and databas
 - PASA
 - EvidenceModeler
 
-A formal citation file (`CITATION.cff`) will be provided.
-
 ------
 
 ## 📬 Support & Contact
