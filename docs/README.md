@@ -177,6 +177,15 @@ Trained AUGUSTUS models are retained within the container environment and will b
 /data/augustus_models/
 ```
 
+### File Path Configuration
+Paths in `tab` files must use the mounted container path (e.g., `/data/...`), not the local host path.
+
+### Character Restriction
+All input data must use English characters only. Non-English characters are not supported.
+
+### No Symbolic Links
+All input files must be regular files. Symbolic links are not supported as they may not resolve correctly inside the Docker container.
+
 ------
 
 ## 📖 Citation
